@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Which sustainability communicator are you?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#EAF1EC; --surface:#F8FBF8; --ink:#14281F; --muted:#4A5F54; --line:#C3D4C8; --accent:#2E7D4F; --accent-ink:#FFFFFF;
+  --hornbill:#1F7A8C; --tiger:#C8372D; --orangutan:#C9700F; --kancil:#4C9A2A;
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1B15; --surface:#16291F; --ink:#E8F1EB; --muted:#9FB6A9; --line:#2B4638; --accent:#5DBE85; --accent-ink:#0E1B15;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1B15; --surface:#16291F; --ink:#E8F1EB; --muted:#9FB6A9; --line:#2B4638; --accent:#5DBE85; --accent-ink:#0E1B15;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+main{max-width:640px;margin:0 auto;padding:28px 20px 56px}
+h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0;letter-spacing:-0.01em}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:10px}
+
+/* hero */
+.hero h1{font-size:clamp(34px,8vw,52px);font-weight:800;margin:22px 0 14px}
+.hero .lede{color:var(--muted);max-width:46ch}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-weight:600;font-size:15px}
+.chip{padding:5px 14px 5px 5px}
+.chip .av{width:38px;height:38px}
+.av{display:block;border-radius:50%;background:var(--c);flex:none;overflow:hidden}
+.av svg{display:block;width:100%;height:100%}
+.av.big{width:132px;height:132px;animation:pop .55s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.btn{display:inline-block;background:var(--accent);color:var(--accent-ink);border:0;border-radius:999px;padding:14px 28px;font-weight:600;font-size:17px;margin-top:28px}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);margin-left:8px}
+.fine{margin-top:22px;font-size:14px;color:var(--muted)}
+
+/* quiz */
+.progress{display:flex;gap:4px;margin-bottom:26px}
+.progress i{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.progress i.done{background:var(--accent)}
+.qmeta{color:var(--muted);font-size:15px;margin-bottom:8px}
+.q h2{font-size:clamp(26px,6vw,34px);font-weight:700;margin-bottom:22px}
+.opts{display:grid;gap:10px;padding:0;margin:0;list-style:none}
+.opt{width:100%;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;transition:border-color .15s,transform .15s}
+.opt:hover{border-color:var(--accent)}
+.opt:active{transform:scale(.99)}
+.back{background:none;border:0;color:var(--muted);padding:8px 0;margin-top:18px;font-size:15px}
+
+/* result */
+.result h2{font-size:clamp(34px,8vw,48px);font-weight:800;margin:16px 0 6px}
+.role{color:var(--muted);font-weight:500;margin-bottom:16px}
+.blocks{display:grid;gap:12px;margin:22px 0}
+.block{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:16px 18px}
+.block h3{font-size:19px;margin-bottom:4px}
+.block.strength{border-left:6px solid var(--kancil)}
+.block.blind{border-left:6px solid var(--tiger)}
+.block.stretch{border-left:6px solid var(--hornbill)}
+.mix{margin-top:30px}
+.mix h3{font-size:20px;margin-bottom:12px}
+.bar{display:grid;grid-template-columns:96px 1fr 24px;align-items:center;gap:10px;margin-bottom:8px;font-size:15px}
+.bar .track{height:12px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar .fill{height:100%;border-radius:6px;transition:width .6s ease}
+.note{margin-top:14px;color:var(--muted);font-size:15px}
+.all{margin-top:30px}
+.all h3{font-size:20px;margin-bottom:10px}
+.all ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.all li{font-size:15px;color:var(--muted)}
+.all b{color:var(--ink);font-weight:600}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.av.big{animation:none!important}}
+</style>
+</head>
+<body>
+<main id="app" aria-live="polite"></main>
+
+<script>
+var TYPES = {
+  A:{key:"A",name:"The Scientist",short:"Scientist",color:"var(--hornbill)",role:"The Evidence Anchor",
+     blurb:"You lead with data, precision and rigour. You like to know the facts are right before you say anything, and your audiences trust you for it.",
+     strength:"Credibility. Sceptics find it hard to dismiss someone who has done the homework.",
+     blind:"Numbers alone rarely move people. Audiences can feel overwhelmed, or simply unmoved.",
+     stretch:"Lead with one number, then pair it with a human consequence."},
+  B:{key:"B",name:"The Advocate",short:"Advocate",color:"var(--tiger)",role:"The Urgency Driver",
+     blurb:"You make the case with energy and conviction. You help people feel that the issue is real, and that time matters.",
+     strength:"Attention and momentum. You make people feel the issue is live.",
+     blind:"Fear without a way to act can tip people into denial or fatigue.",
+     stretch:"Always pair the risk with one clear, doable action."},
+  C:{key:"C",name:"The Storyteller",short:"Storyteller",color:"var(--orangutan)",role:"The Values Storyteller",
+     blurb:"You bring people along by connecting sustainability to what they already care about, through people, examples and shared values.",
+     strength:"Trust and connection. Your message travels across political and cultural lines.",
+     blind:"Can come across as vague, or light on numbers, to technical decision-makers.",
+     stretch:"Anchor every story with one hard fact."},
+  D:{key:"D",name:"The Builder",short:"Builder",color:"var(--kancil)",role:"The Pragmatic Builder",
+     blurb:"You turn big problems into workable next steps. You speak fluent budget, timeline and delivery.",
+     strength:"Delivery. You win over cautious officials by making action feel doable and costed.",
+     blind:"Can understate the risk, or look like greenwashing if the story is all upside.",
+     stretch:"Name the cost of inaction before you present the solution."}
+};
+var ORDER = ["A","B","C","D"];
+var CHARS = {
+  // Scientist: woman with round spectacles and lab coat
+  A:
+   '<circle cx="60" cy="25" r="10" fill="#1F1A17"/>' +
+   '<circle cx="60" cy="52" r="26" fill="#1F1A17"/>' +
+   '<rect x="53" y="70" width="14" height="18" fill="#C98F63"/>' +
+   '<path d="M20 120 Q22 92 46 84 L60 98 L74 84 Q98 92 100 120 Z" fill="#F7F7F5"/>' +
+   '<path d="M49 86 L60 100 L71 86 Z" fill="#14505C"/>' +
+   '<path d="M46 84 L60 98 M74 84 L60 98" stroke="#D4D8D6" stroke-width="2" fill="none"/>' +
+   '<rect x="78" y="100" width="12" height="14" rx="2" fill="#E8ECEA" stroke="#D4D8D6" stroke-width="1.5"/>' +
+   '<line x1="82" y1="97" x2="82" y2="104" stroke="#D1495B" stroke-width="2.5" stroke-linecap="round"/>' +
+   '<line x1="86" y1="98" x2="86" y2="104" stroke="#1F7A8C" stroke-width="2.5" stroke-linecap="round"/>' +
+   '<circle cx="60" cy="55" r="21" fill="#C98F63"/>' +
+   '<path d="M38 52 Q42 30 60 31 Q80 31 82 52 Q72 40 60 42 Q48 40 38 52 Z" fill="#1F1A17"/>' +
+   '<circle cx="51" cy="56" r="7.5" fill="#FFFFFF" fill-opacity=".45" stroke="#1F1A17" stroke-width="2"/>' +
+   '<circle cx="69" cy="56" r="7.5" fill="#FFFFFF" fill-opacity=".45" stroke="#1F1A17" stroke-width="2"/>' +
+   '<line x1="58.5" y1="55" x2="61.5" y2="55" stroke="#1F1A17" stroke-width="2"/>' +
+   '<circle cx="51" cy="56" r="2.3" fill="#1F1A17"/><circle cx="69" cy="56" r="2.3" fill="#1F1A17"/>' +
+   '<path d="M53 67 Q60 73 67 67" stroke="#1F1A17" stroke-width="2.2" fill="none" stroke-linecap="round"/>' +
+   '<circle cx="44" cy="66" r="3.5" fill="#E07A5F" fill-opacity=".4"/><circle cx="76" cy="66" r="3.5" fill="#E07A5F" fill-opacity=".4"/>',
+
+  // Advocate: woman in tudung with a megaphone
+  B:
+   '<path d="M18 120 Q20 94 44 88 L76 88 Q100 94 102 120 Z" fill="#22305A"/>' +
+   '<path d="M60 22 Q90 22 90 56 Q90 76 98 94 Q60 106 22 94 Q30 76 30 56 Q30 22 60 22 Z" fill="#F3E3C8"/>' +
+   '<path d="M32 90 Q60 100 88 90" stroke="#DCC8A6" stroke-width="2" fill="none"/>' +
+   '<ellipse cx="60" cy="57" rx="18" ry="21" fill="#A9714A"/>' +
+   '<path d="M42 50 Q44 36 60 36 Q76 36 78 50 Q68 42 60 43 Q52 42 42 50 Z" fill="#F3E3C8"/>' +
+   '<path d="M47 49 Q52 46 56 49 M64 49 Q68 46 73 49" stroke="#1F1A17" stroke-width="2" fill="none" stroke-linecap="round"/>' +
+   '<circle cx="52" cy="54" r="2.3" fill="#1F1A17"/><circle cx="68" cy="54" r="2.3" fill="#1F1A17"/>' +
+   '<path d="M52 64 Q60 74 68 64 Z" fill="#7A1F1F"/>' +
+   '<circle cx="45" cy="63" r="3.5" fill="#E07A5F" fill-opacity=".4"/><circle cx="75" cy="63" r="3.5" fill="#E07A5F" fill-opacity=".4"/>' +
+   '<rect x="68" y="97" width="10" height="9" rx="2" fill="#E0A800"/>' +
+   '<polygon points="77,96 99,85 99,114 77,107" fill="#FFD166" stroke="#C99700" stroke-width="1.5" stroke-linejoin="round"/>' +
+   '<ellipse cx="99" cy="99.5" rx="3" ry="14.5" fill="#E0A800"/>',
+
+  // Storyteller: man in batik shirt telling a story
+  C:
+   '<rect x="53" y="70" width="14" height="18" fill="#D9A877"/>' +
+   '<path d="M20 120 Q22 92 44 86 L76 86 Q98 92 100 120 Z" fill="#5B2A12"/>' +
+   '<path d="M24 118 Q42 106 60 118 T96 118" stroke="#F2C14E" stroke-width="2" fill="none"/>' +
+   '<path d="M34 108 l4 -5 l4 5 l-4 5 z M52 112 l4 -5 l4 5 l-4 5 z M70 112 l4 -5 l4 5 l-4 5 z M86 108 l4 -5 l4 5 l-4 5 z M42 97 l3 -4 l3 4 l-3 4 z M73 97 l3 -4 l3 4 l-3 4 z" fill="#F2C14E"/>' +
+   '<circle cx="31" cy="100" r="2" fill="#F2C14E"/><circle cx="89" cy="100" r="2" fill="#F2C14E"/>' +
+   '<path d="M50 86 L60 98 L70 86" fill="#D9A877" stroke="#F2C14E" stroke-width="2"/>' +
+   '<circle cx="38.5" cy="56" r="4.5" fill="#D9A877"/><circle cx="81.5" cy="56" r="4.5" fill="#D9A877"/>' +
+   '<circle cx="60" cy="54" r="21" fill="#D9A877"/>' +
+   '<path d="M38 52 Q38 30 60 30 Q82 30 82 52 Q72 39 60 41 Q48 39 38 52 Z" fill="#1F1A17"/>' +
+   '<circle cx="52" cy="55" r="2.3" fill="#1F1A17"/><circle cx="68" cy="55" r="2.3" fill="#1F1A17"/>' +
+   '<path d="M47 49 Q52 46 56 49 M64 49 Q68 46 73 49" stroke="#1F1A17" stroke-width="2" fill="none" stroke-linecap="round"/>' +
+   '<path d="M52 64 Q60 74 68 64 Z" fill="#7A1F1F"/>' +
+   '<circle cx="45" cy="64" r="3.5" fill="#E07A5F" fill-opacity=".4"/><circle cx="75" cy="64" r="3.5" fill="#E07A5F" fill-opacity=".4"/>' +
+   '<ellipse cx="90" cy="24" rx="13" ry="10" fill="#FFFFFF"/>' +
+   '<polygon points="83,30 79,38 90,33" fill="#FFFFFF"/>' +
+   '<circle cx="84" cy="24" r="2" fill="#C9700F"/><circle cx="90" cy="24" r="2" fill="#C9700F"/><circle cx="96" cy="24" r="2" fill="#C9700F"/>',
+
+  // Builder: strong man with hard hat, flexing
+  D:
+   '<rect x="51" y="70" width="18" height="18" fill="#8F5A3A"/>' +
+   '<path d="M24 120 Q26 90 46 84 L74 84 Q94 90 96 120 Z" fill="#FF7A1A"/>' +
+   '<path d="M46 84 L60 100 L74 84" fill="#8F5A3A"/>' +
+   '<path d="M36 100 L44 120 M84 100 L76 120" stroke="#F4F4F0" stroke-width="5"/>' +
+   '<ellipse cx="22" cy="96" rx="16" ry="14" fill="#8F5A3A"/>' +
+   '<ellipse cx="14" cy="76" rx="10" ry="16" fill="#8F5A3A" transform="rotate(-12 14 76)"/>' +
+   '<circle cx="14" cy="57" r="9" fill="#8F5A3A"/>' +
+   '<path d="M14 90 Q26 80 30 94" stroke="#6E4128" stroke-width="2.5" fill="none" stroke-linecap="round"/>' +
+   '<ellipse cx="98" cy="96" rx="16" ry="14" fill="#8F5A3A"/>' +
+   '<ellipse cx="106" cy="76" rx="10" ry="16" fill="#8F5A3A" transform="rotate(12 106 76)"/>' +
+   '<circle cx="106" cy="57" r="9" fill="#8F5A3A"/>' +
+   '<path d="M106 90 Q94 80 90 94" stroke="#6E4128" stroke-width="2.5" fill="none" stroke-linecap="round"/>' +
+   '<ellipse cx="60" cy="56" rx="21" ry="22" fill="#8F5A3A"/>' +
+   '<path d="M37 47 Q37 22 60 22 Q83 22 83 47 Z" fill="#FFC93C"/>' +
+   '<rect x="55" y="22" width="10" height="24" rx="3" fill="#F2A900"/>' +
+   '<rect x="31" y="44" width="58" height="7" rx="3.5" fill="#FFC93C"/>' +
+   '<path d="M46 55 Q51 52 56 54 M74 55 Q69 52 64 54" stroke="#1F1A17" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+   '<circle cx="52" cy="61" r="2.3" fill="#1F1A17"/><circle cx="68" cy="61" r="2.3" fill="#1F1A17"/>' +
+   '<path d="M50 69 Q60 79 70 69 Z" fill="#7A1F1F"/><path d="M52 69 H68" stroke="#FFFFFF" stroke-width="2.5"/>'
+};
+function avatar(k, cls){
+  return '<span class="av '+(cls||'')+'" style="--c:'+TYPES[k].color+'" aria-hidden="true"><svg viewBox="0 0 120 120">'+CHARS[k]+'</svg></span>';
+}
+
+
+var Q = [
+ ["You open a briefing on sustainability. You start with\u2026",["The key data and trends","What happens if we do nothing","A real story of someone affected","What this unlocks for the agency"]],
+ ["A colleague is sceptical about sustainability. You\u2026",["Walk them through the evidence","Explain what delay will cost","Ask what they care about, then connect it","Show the savings and co-benefits"]],
+ ["Which set of words do you reach for most?",["Baseline, evidence, metrics","Urgent, risk, tipping point","Responsibility, children, trust","Opportunity, value, pathway"]],
+ ["Writing a policy paper summary, you worry most that it will\u2026",["Contain an inaccuracy","Not sound urgent enough","Feel lifeless","Be unfunded or impractical"]],
+ ["Your audience looks anxious after your talk. You\u2026",["Add more detail to reassure them","Stress that the window to act is closing","Reframe around values you all share","Offer concrete first steps"]],
+ ["The best sustainability talk you've heard was\u2026",["Rigorous and data-rich","A stirring call to act","A moving story","A practical roadmap"]],
+ ["You can't answer a hard question. You\u2026",["Admit the data gap and follow up","Return to the bigger risk","Answer with an example from real life","Pivot to what's doable now"]],
+ ["Your sustainability post on social media would be\u2026",["A chart or statistic","A bold warning","A personal anecdote","A success case or how-to"]],
+ ["You get two minutes with a senior decision-maker. You give\u2026",["Three key numbers","The risk of inaction","Why it matters to the people we serve","A costed recommendation"]],
+ ["When people disagree with you, you tend to\u2026",["Correct the facts","Raise the stakes","Look for shared values","Find a workable compromise"]],
+ ["Colleagues would describe your style as\u2026",["Credible and dense","Passionate and intense","Warm and relatable","Practical and solution-focused"]]
+];
+
+var app = document.getElementById("app");
+var idx = 0, answers = [], orders = [];
+
+function shuffle(a){
+  a = a.slice();
+  for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; }
+  return a;
+}
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+function start(){
+  app.innerHTML =
+   '<section class=\"hero\">' +
+     '<div class=\"chips\">' +
+       ORDER.map(function(k){ return '<span class=\"chip\" style=\"--c:'+TYPES[k].color+'\">'+avatar(k)+TYPES[k].short+'</span>'; }).join("") +
+     '</div>' +
+     '<h1>Which sustainability communicator are you?</h1>' +
+     '<p class="lede">Eleven quick questions. Pick the answer closest to your instinct, not the one you wish were true. You\u2019ll get your communicator profile, a strength, a blind spot and one thing to try next.</p>' +
+     '<button class="btn" id="go">Start the quiz</button>' +
+     '<p class="fine">Takes about two minutes. A reflection tool for conversation, not a psychometric test.</p>' +
+   '</section>';
+  document.getElementById("go").onclick = function(){ idx=0; answers=[]; orders=[]; renderQ(); };
+}
+
+function renderQ(){
+  if (idx >= Q.length) return renderResult();
+  if (!orders[idx]) orders[idx] = shuffle([0,1,2,3]);
+  var q = Q[idx], ord = orders[idx];
+  var bars = Q.map(function(_,i){ return '<i class="'+(i<idx?'done':'')+'"></i>'; }).join("");
+  app.innerHTML =
+   '<section class="q">' +
+     '<div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="'+Q.length+'" aria-valuenow="'+(idx+1)+'">'+bars+'</div>' +
+     '<p class="qmeta">Question '+(idx+1)+' of '+Q.length+'</p>' +
+     '<h2>'+esc(q[0])+'</h2>' +
+     '<ul class="opts">' +
+       ord.map(function(o){ return '<li><button class="opt" data-k="'+ORDER[o]+'">'+esc(q[1][o])+'</button></li>'; }).join("") +
+     '</ul>' +
+     (idx>0 ? '<button class="back" id="back">Back</button>' : '') +
+   '</section>';
+  var btns = app.querySelectorAll(".opt");
+  for (var i=0;i<btns.length;i++){
+    btns[i].onclick = function(){ answers[idx] = this.getAttribute("data-k"); idx++; renderQ(); window.scrollTo(0,0); };
+  }
+  var b = document.getElementById("back");
+  if (b) b.onclick = function(){ idx--; renderQ(); };
+}
+
+function renderResult(){
+  var score = {A:0,B:0,C:0,D:0};
+  answers.forEach(function(k){ score[k]++; });
+  var ranked = ORDER.slice().sort(function(x,y){ return score[y]-score[x]; });
+  var top = TYPES[ranked[0]], second = TYPES[ranked[1]];
+  var note = "";
+  if (score[ranked[0]] === score[ranked[1]]) {
+    note = "You tied with "+second.name+". You\u2019re a genuine blend, so read both profiles and borrow the best of each.";
+  } else if (score[ranked[0]] - score[ranked[1]] === 1) {
+    note = "You\u2019re close to "+second.name+" too. Expect some of that style to show up when the stakes change.";
+  }
+  var bars = ranked.map(function(k){
+    var t = TYPES[k], pct = Math.round(score[k]/Q.length*100);
+    return '<div class="bar"><span>'+esc(t.short)+'</span>' +
+           '<div class="track" role="img" aria-label="'+esc(t.name)+': '+score[k]+' of '+Q.length+'"><div class="fill" style="width:'+pct+'%;background:'+t.color+'"></div></div>' +
+           '<span>'+score[k]+'</span></div>';
+  }).join("");
+  var all = ORDER.map(function(k){ var t=TYPES[k]; return '<li><b>'+esc(t.name)+'</b>, '+esc(t.role)+'</li>'; }).join("");
+
+  app.innerHTML =
+   '<section class="result" style="--c:'+top.color+'">' +
+     avatar(top.key,'big anim') +
+     '<h2>You\u2019re '+esc(top.name)+'</h2>' +
+     '<p class="role">'+esc(top.role)+'</p>' +
+     '<p>'+esc(top.blurb)+'</p>' +
+     '<div class="blocks">' +
+       '<div class="block strength"><h3>Your strength</h3><p>'+esc(top.strength)+'</p></div>' +
+       '<div class="block blind"><h3>Your blind spot</h3><p>'+esc(top.blind)+'</p></div>' +
+       '<div class="block stretch"><h3>Try this next</h3><p>'+esc(top.stretch)+'</p></div>' +
+     '</div>' +
+     '<div class="mix"><h3>Your full mix</h3>'+bars+(note?'<p class="note">'+esc(note)+'</p>':'')+'</div>' +
+     '<div class="all"><h3>The four communicators</h3><ul>'+all+'</ul></div>' +
+     '<button class="btn" id="again">Take it again</button>' +
+   '</section>';
+  document.getElementById("again").onclick = function(){ idx=0; answers=[]; orders=[]; start(); window.scrollTo(0,0); };
+  window.scrollTo(0,0);
+}
+
+start();
+</script>
+</body>
+</html>
