@@ -54,6 +54,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .progress i{flex:1;height:6px;border-radius:3px;background:var(--line)}
 .progress i.done{background:var(--accent)}
 .qmeta{color:var(--muted);font-size:15px;margin-bottom:8px}
+.ctx{background:var(--surface);border:1.5px solid var(--line);border-left:6px solid var(--accent);border-radius:14px;padding:16px 18px;margin-bottom:20px;font-size:16.5px}
 .q h2{font-size:clamp(26px,6vw,34px);font-weight:700;margin-bottom:22px}
 .opts{display:grid;gap:10px;padding:0;margin:0;list-style:none}
 .opt{width:100%;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;transition:border-color .15s,transform .15s}
@@ -195,15 +196,54 @@ function avatar(k, cls){
 
 var Q = [
  ["You open a briefing on sustainability. You start with\u2026",["The key data and trends","What happens if we do nothing","A real story of someone affected","What this unlocks for the agency"]],
- ["A colleague is sceptical about sustainability. You\u2026",["Walk them through the evidence","Explain what delay will cost","Ask what they care about, then connect it","Show the savings and co-benefits"]],
+
+ ["You respond by\u2026",[
+   "Walking your boss through the method and the local research partner\u2019s data",
+   "Saying the numbers are a warning, and that dismissing them delays help for children",
+   "Bringing it back to real children and families in Putrajaya, and what we owe them",
+   "Proposing a joint review with local data, plus a small pilot the ministry can own"],
+   "A UNICEF report, produced with a Malaysian research organisation, flags child stunting in Putrajaya as a bigger concern than in several poorer states. Your boss says the report is biased by a Western lens."],
+
  ["Which set of words do you reach for most?",["Baseline, evidence, metrics","Urgent, risk, tipping point","Responsibility, children, trust","Opportunity, value, pathway"]],
+
+ ["You build your case around\u2026",[
+   "Hard evidence on long-term returns, benchmarked against other countries",
+   "The cost of falling behind, and how little time Malaysia has left to lead",
+   "The Malaysia our children will inherit, and the values we want it to reflect",
+   "A phased, costed plan showing what each ringgit delivers and who delivers it"],
+   "You need to persuade the Prime Minister to increase funding in the 14th Malaysia Plan for post-2030 global sustainability efforts."],
+
  ["Writing a policy paper summary, you worry most that it will\u2026",["Contain an inaccuracy","Not sound urgent enough","Feel lifeless","Be unfunded or impractical"]],
+
+ ["When it\u2019s your turn to speak, you\u2026",[
+   "Calmly set out what the science and the data actually show",
+   "Warn the audience what is already happening, and what is at stake if we ignore it",
+   "Describe a flood-hit family you met, then ask the audience what they have seen",
+   "Move past the argument to practical steps and savings that everyone gains from"],
+   "You are on a panel with a popular social media influencer who says climate change isn\u2019t real."],
+
  ["Your audience looks anxious after your talk. You\u2026",["Add more detail to reassure them","Stress that the window to act is closing","Reframe around values you all share","Offer concrete first steps"]],
- ["The best sustainability talk you've heard was\u2026",["Rigorous and data-rich","A stirring call to act","A moving story","A practical roadmap"]],
- ["You can't answer a hard question. You\u2026",["Admit the data gap and follow up","Return to the bigger risk","Answer with an example from real life","Pivot to what's doable now"]],
+
+ ["To persuade your boss, you\u2026",[
+   "Present the report\u2019s projections next to labour-market data on demand for carers",
+   "Stress that disruption is coming fast, and people will be left behind if we wait",
+   "Paint the picture of who will care for our ageing parents and young children",
+   "Table a costed pilot with training pathways, wage levels and employers ready to hire"],
+   "The World Economic Forum\u2019s Future of Jobs report points to major job disruption from AI. In line with SDG 8, you want to shift the focus from tech jobs to the care economy."],
+
+ ["The best sustainability talk you\u2019ve heard was\u2026",["Rigorous and data-rich","A stirring call to act","A moving story","A practical roadmap"]],
+
+ ["To convince them, you\u2026",[
+   "Show pedestrian safety and health data, with benchmarks from comparable cities",
+   "Warn that every year of delay means more accidents and more people shut out",
+   "Take officials on a walk that simulates a day for a wheelchair user, an older person and a child",
+   "Propose a low-cost pilot street with a clear budget, timeline and review date"],
+   "You need a local authority to make walkable, friendly streets a priority."],
+
+ ["You can\u2019t answer a hard question. You\u2026",["Admit the data gap and follow up","Return to the bigger risk","Answer with an example from real life","Pivot to what\u2019s doable now"]],
+
  ["Your sustainability post on social media would be\u2026",["A chart or statistic","A bold warning","A personal anecdote","A success case or how-to"]],
- ["You get two minutes with a senior decision-maker. You give\u2026",["Three key numbers","The risk of inaction","Why it matters to the people we serve","A costed recommendation"]],
- ["When people disagree with you, you tend to\u2026",["Correct the facts","Raise the stakes","Look for shared values","Find a workable compromise"]],
+
  ["Colleagues would describe your style as\u2026",["Credible and dense","Passionate and intense","Warm and relatable","Practical and solution-focused"]]
 ];
 
@@ -224,9 +264,9 @@ function start(){
        ORDER.map(function(k){ return '<span class=\"chip\" style=\"--c:'+TYPES[k].color+'\">'+avatar(k)+TYPES[k].short+'</span>'; }).join("") +
      '</div>' +
      '<h1>Which sustainability communicator are you?</h1>' +
-     '<p class="lede">Eleven quick questions. Pick the answer closest to your instinct, not the one you wish were true. You\u2019ll get your communicator profile, a strength, a blind spot and one thing to try next.</p>' +
+     '<p class="lede">Thirteen quick questions, a few of them real-world scenarios. Pick the answer closest to your instinct, not the one you wish were true. You\u2019ll get your communicator profile, a strength, a blind spot and one thing to try next.</p>' +
      '<button class="btn" id="go">Start the quiz</button>' +
-     '<p class="fine">Takes about two minutes. A reflection tool for conversation, not a psychometric test.</p>' +
+     '<p class="fine">Takes about three minutes. A reflection tool for conversation, not a psychometric test.</p>' +
    '</section>';
   document.getElementById("go").onclick = function(){ idx=0; answers=[]; orders=[]; renderQ(); };
 }
@@ -240,6 +280,7 @@ function renderQ(){
    '<section class="q">' +
      '<div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="'+Q.length+'" aria-valuenow="'+(idx+1)+'">'+bars+'</div>' +
      '<p class="qmeta">Question '+(idx+1)+' of '+Q.length+'</p>' +
+     (q[2] ? '<p class="ctx">'+esc(q[2])+'</p>' : '') +
      '<h2>'+esc(q[0])+'</h2>' +
      '<ul class="opts">' +
        ord.map(function(o){ return '<li><button class="opt" data-k="'+ORDER[o]+'">'+esc(q[1][o])+'</button></li>'; }).join("") +
